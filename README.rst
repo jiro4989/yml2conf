@@ -11,7 +11,17 @@ This is a Nim project template.
 Usage
 =====
 
-TODO
+こんな感じにしたいなぁ。
+
+.. code-block:: shell
+
+   yml2conf generate
+
+* src配下のymlを読み込んでout配下に吐き出す
+* `--config` で1ファイル指定する
+* yml2conf generate logrotate logrotate.yml みたいにサブコマンドでファイルタイプ
+  を指定する
+* yml内の `yml2conf.type` の値で生成の仕方を切り替える
 
 Installation
 ============
