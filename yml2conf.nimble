@@ -13,3 +13,4 @@ bin           = @["yml2conf"]
 # Dependencies
 
 requires "nim >= 1.0.6"
+requires "yaml >= 0.12.0"
