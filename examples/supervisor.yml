@@ -1,0 +1,15 @@
+- program: program_1
+  directory: /home/jiro4989/src/github.com/jiro4989/infra
+  command: /usr/local/bin/docker-compose -f /home/jiro4989/src/github.com/jiro4989/infra/docker-compose.yml up
+  environment:
+    NAME: program_1
+    PORT: 1234
+    TIMEOUT: 3000
+  numprocs: 1
+  autostart: true
+  autorestart: true
+  user: jiro4989
+  logfile_maxbytes: 100MB
+  logfile_backups: 7
+  stdout_logfile: /var/log/infra.log
+  stderr_logfile: /var/log/infra_error.log

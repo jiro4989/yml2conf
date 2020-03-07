@@ -1,0 +1,32 @@
+yml2conf:
+  version: 1.0
+
+configs:
+
+  - path: "/var/log/app/app*.log"
+    missingok: true
+    rotate: 7
+    dateext: true
+    dateformat: "_%Y-%m-%d"
+    compress: true
+    create:
+      mode: "0640"
+      owner: root
+      group: root
+    copytruncate: true
+    daily: true
+
+  - path:
+      - "/var/log/app_2/app_2*.log"
+      - "/var/log/app_3/app_3*.log"
+    missingok: true
+    rotate: 7
+    dateext: true
+    dateformat: "_%Y-%m-%d"
+    compress: true
+    create:
+      mode: "0640"
+      owner: root
+      group: root
+    copytruncate: true
+    daily: true

@@ -1,0 +1,68 @@
+INCLUDES:
+  before: paths-debian.conf
+
+DEFAULT:
+  ignoreip: 127.0.0.1/8
+  ignorecommand:
+
+  bantime: 60m
+  findtime: 600
+  maxretry: 6
+
+  backend: auto
+  usedns: warn
+  logencoding: auto
+
+  enabled: false
+
+  filter: "%(__name__)s"
+
+  # Mail Settings
+  destemail: example@example.com
+  sendername: Fail2Ban
+  mta: mail
+
+  # Firewall Defaults
+  protocol: tcp
+  chain: INPUT
+  port: 0:65535
+  banaction: iptables-multiport
+
+  # Our Banning Action
+  # ban & send an e-mail with whois report and relevant log lines
+  # to the destemail.
+  action_mwl: |
+    %(banaction)s[name=%(__name__)s, bantime="%(bantime)s", port="%(port)s", protocol="%(protocol)s", chain="%(chain)s"]
+    %(mta)s-whois-lines[name=%(__name__)s, sender="%(sender)s", dest="%(destemail)s", logpath=%(logpath)s, chain="%(chain)s"]
+
+  # Choose default action.
+  action: "%(action_mwl)s"
+
+#
+# JAILS
+#
+
+JAIL:
+  sshd:
+    enabled: true
+    port: ssh
+    filter: sshd
+    logpath: /var/log/auth.*
+    maxretry: 6
+
+  nginx-dos:
+    enabled: true
+    port: http,https
+    filter: nginx-dos
+    logpath: /var/log/nginx/access.log
+    maxretry: 12
+    findtime: 3
+
+  blacklist:
+    enabled: true
+    logpath: /var/log/fail2ban.*
+    filter: blacklist
+    banaction: blacklist
+    bantime: 31536000   # 1 year
+    findtime: 31536000  # 1 year
+    maxretry: 10

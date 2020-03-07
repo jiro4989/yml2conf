@@ -1,0 +1,30 @@
+# examples:
+#   prd: 123.45.1.0/24
+#     web: 0000 0001
+#     app: 0001 0001
+#     batch: 0010 0001
+#   stg: 123.45.2.0/24
+#   dev: 123.45.3.0/24
+
+yml2conf:
+  version: 1.0
+
+configs:
+
+  - Host: web
+    HostName: 123.45.1.1
+    Port: 22
+    User: dev
+    IdentityFile: ~/.ssh/prd
+
+  - Host: app
+    HostName: 123.45.1.17
+    Port: 22
+    User: dev
+    IdentityFile: ~/.ssh/prd
+
+  - Host: batch
+    HostName: 123.45.1.33
+    Port: 22
+    User: dev
+    IdentityFile: ~/.ssh/prd
