@@ -1,15 +1,44 @@
-- program: program_1
-  directory: /home/jiro4989/src/github.com/jiro4989/infra
-  command: /usr/local/bin/docker-compose -f /home/jiro4989/src/github.com/jiro4989/infra/docker-compose.yml up
-  environment:
-    NAME: program_1
-    PORT: 1234
-    TIMEOUT: 3000
-  numprocs: 1
-  autostart: true
-  autorestart: true
-  user: jiro4989
-  logfile_maxbytes: 100MB
-  logfile_backups: 7
-  stdout_logfile: /var/log/infra.log
-  stderr_logfile: /var/log/infra_error.log
+yml2conf:
+  version: 1.0
+
+configs:
+
+  - &app
+    program: app
+    directory: /opt/app/current
+    command: /opt/app/current/bin
+    environment:
+      NAME: app
+      PORT: 1001
+      TIMEOUT: 3000
+    numprocs: 1
+    autostart: true
+    autorestart: true
+    user: www-data
+    logfile_maxbytes: 100MB
+    logfile_backups: 7
+    stdout_logfile: /var/log/app.log
+    stderr_logfile: /var/log/app_error.log
+
+  - <<: *app
+    program: stg-app
+    directory: /opt/stg-app/current
+    command: /opt/stg-app/current/bin
+    environment:
+      NAME: stg-app
+      PORT: 2001
+      TIMEOUT: 3000
+    stdout_logfile: /var/log/stg-app.log
+    stderr_logfile: /var/log/stg-app_error.log
+
+  - <<: *app
+    program: dev-app
+    directory: /opt/dev-app/current
+    command: /opt/dev-app/current/bin
+    environment:
+      NAME: dev-app
+      PORT: 3001
+      TIMEOUT: 3000
+    stdout_logfile: /var/log/dev-app.log
+    stderr_logfile: /var/log/dev-app_error.log
+

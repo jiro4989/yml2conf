@@ -1,0 +1,19 @@
+yml2conf:
+  version: 1.0
+
+configs:
+
+  - minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    day_of_month: "*"
+    command: "echo 1 hours"
+
+  - minute: "*/5"
+    hour: "2"
+    day: "*"
+    month: "*"
+    day_of_month: "*"
+    command: "echo 1 hours"
+

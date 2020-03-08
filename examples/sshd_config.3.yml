@@ -1,0 +1,35 @@
+# examples:
+#   prd: 123.45.1.0/24
+#     web: 0000 0001
+#     app: 0001 0001
+#     batch: 0010 0001
+#   stg: 123.45.2.0/24
+#   dev: 123.45.3.0/24
+
+yml2conf:
+  version: 1.0
+
+configs:
+
+  - &prd { Host: web1,   HostName: 123.45.1.1, Port: 22, User: dev, IdentityFile: ~/.ssh/prd }
+  - { <<: *prd, Host: web2,   HostName: 123.45.1.2 }
+  - { <<: *prd, Host: web3,   HostName: 123.45.1.3 }
+  - { <<: *prd, Host: web4,   HostName: 123.45.1.4 }
+  - { <<: *prd, Host: app1,   HostName: 123.45.1.17 }
+  - { <<: *prd, Host: app2,   HostName: 123.45.1.18 }
+  - { <<: *prd, Host: batch1, HostName: 123.45.1.33 }
+  - { <<: *prd, Host: batch2, HostName: 123.45.1.34 }
+
+  - &stg { Host: stg-web1,   HostName: 123.45.2.1, Port: 22, User: dev, IdentityFile: ~/.ssh/stg }
+  - { <<: *stg, Host: stg-web2,   HostName: 123.45.2.2 }
+  - { <<: *stg, Host: stg-web3,   HostName: 123.45.2.3 }
+  - { <<: *stg, Host: stg-web4,   HostName: 123.45.2.4 }
+  - { <<: *stg, Host: stg-app1,   HostName: 123.45.2.17 }
+  - { <<: *stg, Host: stg-app2,   HostName: 123.45.2.18 }
+  - { <<: *stg, Host: stg-batch1, HostName: 123.45.2.33 }
+  - { <<: *stg, Host: stg-batch2, HostName: 123.45.2.34 }
+
+  - &dev { Host: dev-web1,   HostName: 123.45.3.1, Port: 22, User: dev, IdentityFile: ~/.ssh/dev }
+  - { <<: *dev, Host: dev-web2,   HostName: 123.45.3.2 }
+  - { <<: *dev, Host: dev-app1,   HostName: 123.45.3.17 }
+  - { <<: *dev, Host: dev-batch1, HostName: 123.45.3.33 }
