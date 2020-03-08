@@ -1,5 +1,5 @@
 ====
-CHANGEME
+yml2conf
 ====
 
 |nimble-version| |nimble-install| |gh-actions|
@@ -22,6 +22,73 @@ Usage
 * yml2conf generate logrotate logrotate.yml みたいにサブコマンドでファイルタイプ
   を指定する
 * yml内の `yml2conf.type` の値で生成の仕方を切り替える
+
+
+.. code-block:: text
+
+   src/
+     **cwd**
+     supervisor/
+       app.yml
+     logrotate/
+       app.yml
+     sshd_config/
+       dev.yml
+     cron/
+       app.yml
+     out/
+       supervisor/
+         app.conf
+       logrotate/
+         app
+       sshd_config/
+         dev.conf
+       cron/
+         app
+
+
+あるいは
+
+.. code-block:: text
+
+   src/
+     **cwd**
+     supervisor/
+       app.yml
+     logrotate/
+       app.yml
+     sshd_config/
+       dev.yml
+     cron/
+       app.yml
+     out/
+       prd/
+         supervisor/
+           app.conf
+         logrotate/
+           app
+         sshd_config/
+           dev.conf
+         cron/
+           app
+       stg/
+         supervisor/
+           app.conf
+         logrotate/
+           app
+         sshd_config/
+           dev.conf
+         cron/
+           app
+       dev/
+         supervisor/
+           app.conf
+         logrotate/
+           app
+         sshd_config/
+           dev.conf
+         cron/
+           app
 
 Installation
 ============
