@@ -3,7 +3,10 @@ yml2conf:
 
 configs:
 
-  - path: "/var/log/app/app*.log"
+  - &common
+    path:
+      - "/var/log/app/app.log"
+      - "/var/log/app/*-app.log"
     missingok: true
     rotate: 7
     dateext: true
@@ -11,22 +14,15 @@ configs:
     compress: true
     create:
       mode: "0640"
-      owner: root
-      group: root
+      owner: www-data
+      group: www-data
     copytruncate: true
     daily: true
 
-  - path:
-      - "/var/log/app_2/app_2*.log"
-      - "/var/log/app_3/app_3*.log"
-    missingok: true
-    rotate: 7
-    dateext: true
-    dateformat: "_%Y-%m-%d"
-    compress: true
+  - <<: *common
+    path:
+      - "/var/log/batch/*-batch-*.log"
     create:
       mode: "0640"
-      owner: root
-      group: root
-    copytruncate: true
-    daily: true
+      owner: batch
+      group: batch
